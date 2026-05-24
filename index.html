@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090b10">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Karina Pack do pobrania po akceptacji reklam i 2-minutowym timerze.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://fortstar7.github.io/">
+    <meta property="og:url" content="https://fortstar7.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Karina Pack - pobierz paczkę">
+    <meta property="og:description" content="Zaakceptuj reklamy, poczekaj 2 minuty i pobierz Karina Pack.">
+    <meta property="og:image" content="assets/img/og-image.png">
+    <meta property="og:locale" content="pl_PL">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Karina Pack - pobierz paczkę">
+    <meta name="twitter:description" content="Pobieranie odblokowuje się po akceptacji reklam i 2-minutowym odliczaniu.">
+    <meta name="twitter:image" content="assets/img/og-image.png">
+    <title>Karina Pack - Pobierz</title>
+    <link rel="icon" href="assets/img/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/img/icon-192.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="preload" href="assets/img/karina-hero.png" as="image">
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #070913;
+        --bg-2: #0e1320;
+        --panel: rgba(17, 23, 34, 0.92);
+        --panel-2: rgba(22, 29, 43, 0.96);
+        --text: #f7f8ff;
+        --muted: #b7c0d5;
+        --line: rgba(255,255,255,.14);
+        --accent: #5ee7ff;
+        --accent-2: #a6ff7d;
+        --pink: #ff4fd8;
+        --warn: #ffd36a;
+        --good: #82f6b1;
+        --shadow: 0 24px 70px rgba(0,0,0,.42);
+        --radius: 26px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; background: var(--bg); }
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at 14% 8%, rgba(94,231,255,.18), transparent 30rem),
+          radial-gradient(circle at 88% 12%, rgba(255,79,216,.20), transparent 31rem),
+          linear-gradient(180deg, #070913 0%, #0a0d17 58%, #070913 100%);
+      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      .shell { width: min(1160px, calc(100% - 2rem)); margin-inline: auto; }
+      .skip-link {
+        position: fixed; left: 1rem; top: 1rem; z-index: 999;
+        transform: translateY(-160%); padding: .75rem 1rem; border-radius: 999px;
+        color: #071016; background: var(--accent); font-weight: 900;
+      }
+      .skip-link:focus { transform: translateY(0); }
+      .site-header {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(7,9,19,.78); backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--line);
+      }
+      .site-header__inner {
+        min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      }
+      .brand { display: inline-flex; align-items: center; gap: .75rem; font-weight: 950; }
+      .brand__mark {
+        width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px;
+        color: #071016; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      }
+      .brand small { display: block; color: var(--muted); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; }
+      .main-nav { display: flex; gap: .4rem; align-items: center; }
+      .main-nav a { color: var(--muted); padding: .68rem .9rem; border-radius: 999px; font-weight: 800; }
+      .main-nav a:hover { color: var(--text); background: rgba(255,255,255,.07); }
+      .button {
+        border: 1px solid rgba(255,255,255,.17); border-radius: 999px; min-height: 3rem;
+        padding: .85rem 1.12rem; display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+        color: var(--text); background: rgba(255,255,255,.07); font-weight: 900; transition: transform .16s ease, opacity .16s ease;
+      }
+      .button:hover:not(:disabled) { transform: translateY(-1px); }
+      .button:disabled, .button[aria-disabled="true"] { cursor: not-allowed; opacity: .46; transform: none; }
+      .button--primary { color: #071016; border-color: rgba(166,255,125,.55); background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 16px 40px rgba(94,231,255,.20); }
+      .button--ghost { color: var(--muted); background: rgba(255,255,255,.045); }
+      .button--wide { width: 100%; }
+      .hero {
+        position: relative; overflow: hidden; min-height: 680px; display: grid; align-items: center; padding: 5rem 0;
+      }
+      .hero__media { position: absolute; inset: 0; z-index: 0; background: #05070a; }
+      .hero__media::after {
+        content: ""; position: absolute; inset: 0; z-index: 1;
+        background: linear-gradient(90deg, rgba(7,9,19,.96) 0%, rgba(7,9,19,.74) 50%, rgba(7,9,19,.90) 100%), linear-gradient(180deg, transparent 0%, rgba(7,9,19,.92) 100%);
+      }
+      .hero__media img { width: 100%; height: 100%; object-fit: cover; opacity: .9; filter: saturate(1.08) contrast(1.05); }
+      .hero__grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0,1.05fr) minmax(280px,.55fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+      .eyebrow { margin: 0 0 .85rem; color: var(--accent); font-size: .82rem; line-height: 1.2; letter-spacing: .12em; text-transform: uppercase; font-weight: 950; }
+      h1 { margin: 0; font-size: clamp(3.8rem, 10vw, 7.4rem); line-height: .9; letter-spacing: -.075em; }
+      h2 { margin: 0; font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1; letter-spacing: -.045em; }
+      h3 { margin: 0; }
+      .lead { max-width: 57ch; margin: 1.2rem 0 0; color: var(--muted); font-size: clamp(1.02rem, 2vw, 1.2rem); line-height: 1.75; }
+      .hero__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+      .hero__metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .7rem; max-width: 34rem; padding: 0; margin: 2rem 0 0; list-style: none; }
+      .hero__metrics li { padding: 1rem; border: 1px solid var(--line); border-radius: 18px; background: rgba(7,9,19,.58); backdrop-filter: blur(10px); }
+      .hero__metrics span { display: block; font-size: 1.35rem; font-weight: 950; }
+      .hero__metrics small { color: var(--muted); }
+      .pack-preview { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+      .pack-preview::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,.78)); pointer-events: none; }
+      .pack-preview img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+      .pack-preview__meta { position: absolute; z-index: 2; left: 1rem; right: 1rem; bottom: 1rem; display: grid; gap: .35rem; }
+      .status-pill { display: inline-flex; width: fit-content; align-items: center; min-height: 1.8rem; padding: .25rem .65rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.08); color: var(--muted); font-size: .78rem; font-weight: 900; }
+      .status-pill--live { color: #071016; background: var(--accent-2); }
+      .status-pill--warn { color: #071016; background: var(--warn); }
+      .status-pill--ready { color: #071016; background: var(--good); }
+      .section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+      .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.035); }
+      .strip-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0; }
+      .strip-item { padding: 1rem 1.1rem; border-right: 1px solid var(--line); }
+      .strip-item:last-child { border-right: 0; }
+      .strip-item strong { display: block; }
+      .strip-item span { color: var(--muted); font-size: .94rem; }
+      .download { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(94,231,255,.08), transparent 44%), var(--bg-2); }
+      .download-grid { display: grid; grid-template-columns: minmax(0,.95fr) minmax(320px,.65fr); gap: 1.2rem; align-items: stretch; }
+      .panel {
+        padding: clamp(1rem, 3vw, 1.45rem); border: 1px solid var(--line); border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035)), var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .panel p { color: var(--muted); line-height: 1.65; }
+      .check-row { display: grid; grid-template-columns: 1.25rem minmax(0,1fr); gap: .78rem; align-items: start; margin: 1rem 0; color: var(--muted); font-weight: 760; line-height: 1.55; }
+      .check-row input { width: 1.15rem; height: 1.15rem; margin-top: .2rem; accent-color: var(--accent); }
+      .timer-card { display: grid; gap: 1rem; }
+      .timer-display { display: grid; place-items: center; min-height: 170px; border: 1px solid rgba(94,231,255,.24); border-radius: 22px; background: radial-gradient(circle at top, rgba(94,231,255,.15), transparent 62%), rgba(0,0,0,.22); text-align: center; }
+      .timer-display strong { display: block; font-variant-numeric: tabular-nums; font-size: clamp(4rem, 10vw, 6.4rem); line-height: .9; letter-spacing: -.06em; }
+      .timer-display span { color: var(--muted); font-weight: 850; }
+      .progress { height: 12px; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.08); }
+      .progress__bar { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .25s ease; }
+      .status-text { min-height: 3.2rem; color: var(--muted); font-weight: 760; line-height: 1.6; }
+      .action-grid { display: grid; gap: .75rem; }
+      .download-link[hidden] { display: none !important; }
+      .ads-section { padding-top: 2rem; }
+      .ads-section[hidden] { display: none !important; }
+      .ad-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; align-items: stretch; }
+      .ad-slot {
+        min-height: 260px; display: grid; place-items: center; overflow: hidden;
+        border-radius: 18px; border: 1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.18);
+      }
+      .ad-slot iframe { width: 100%; min-height: 260px; border: 0; display: block; background: transparent; }
+      .ad-slot--wide { grid-column: 1 / -1; min-height: 110px; }
+      .ad-slot--wide iframe { min-height: 110px; }
+      .simple-content { background: #080b12; }
+      .simple-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+      .simple-card { border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.04); padding: 1.2rem; }
+      .simple-card p { color: var(--muted); }
+      .site-footer { padding: 2rem 0; border-top: 1px solid var(--line); background: #05070a; }
+      .footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--muted); }
+      .footer-nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+      .footer-nav a { color: var(--muted); font-weight: 800; }
+      .footer-nav a:hover { color: var(--accent); }
+      .noscript { position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 999; max-width: 46rem; margin-inline: auto; border-radius: 18px; padding: 1rem; background: #ff4778; color: white; font-weight: 900; text-align: center; }
+      @media (max-width: 980px) {
+        .main-nav { display: none; }
+        .hero__grid, .download-grid { grid-template-columns: 1fr; }
+        .pack-preview { max-width: 360px; }
+        .ad-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      }
+      @media (max-width: 680px) {
+        .shell { width: min(100% - 1rem, 1160px); }
+        .site-header__inner { min-height: 66px; }
+        .hero { min-height: auto; padding: 3rem 0; }
+        .hero__metrics, .strip-grid, .simple-grid, .ad-grid { grid-template-columns: 1fr; }
+        .strip-item { border-right: 0; border-bottom: 1px solid var(--line); }
+        .strip-item:last-child { border-bottom: 0; }
+        .ad-slot, .ad-slot iframe { min-height: 180px; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#download">Przejdź do pobierania</a>
+
+    <header class="site-header">
+      <div class="shell site-header__inner">
+        <a class="brand" href="#top" aria-label="Karina Pack - strona główna">
+          <span class="brand__mark" aria-hidden="true">K</span>
+          <span><strong>Karina Pack</strong><small>editing packs</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Nawigacja">
+          <a href="#pack">Pack</a>
+          <a href="#download">Pobierz</a>
+          <a href="privacy.html">Prywatność</a>
+        </nav>
+        <button class="button button--ghost" type="button" data-scroll-download>
+          <span aria-hidden="true">↓</span><span>Pobierz</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__media" aria-hidden="true">
+          <img src="assets/img/karina-hero.png" alt="" width="1536" height="1024" decoding="async" fetchpriority="high">
+        </div>
+        <div class="shell hero__grid">
+          <div>
+            <p class="eyebrow">Premium editing pack do scenek i dynamicznych editów</p>
+            <h1 id="hero-title">Karina Pack</h1>
+            <p class="lead">
+              Zaakceptuj reklamy na dole strony, uruchom timer i poczekaj pełne <strong>2 minuty</strong>.
+              Przycisk pobierania pojawi się dopiero po zakończeniu odliczania.
+            </p>
+            <div class="hero__actions">
+              <button class="button button--primary" type="button" data-scroll-download>
+                <span aria-hidden="true">▶</span><span>Przejdź do pobierania</span>
+              </button>
+              <a class="button button--ghost" href="terms.html">Zasady</a>
+            </div>
+            <ul class="hero__metrics" aria-label="Najważniejsze informacje">
+              <li><span>MP4</span><small>format</small></li>
+              <li><span>2:00</span><small>timer</small></li>
+              
+            </ul>
+          </div>
+          <aside class="pack-preview" aria-label="Podgląd packa">
+            <img src="assets/img/karina-cover.png" alt="Okładka Karina Pack" width="900" height="900" decoding="async">
+            <div class="pack-preview__meta">
+              <span class="status-pill status-pill--live">Download po 2 minutach</span>
+              <strong></strong>
+              <small>Scenki do montażu, shortów i fan editów</small>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="strip" aria-label="Zasady odblokowania">
+        <div class="shell strip-grid">
+          <article class="strip-item"><strong>1. Akceptacja</strong><span></span></article>
+          <article class="strip-item"><strong>2. Reklamy i timer</strong><span></span></article>
+          <article class="strip-item"><strong>3. Pobranie</strong><span></span></article>
+        </div>
+      </section>
+
+      <section class="section simple-content" id="pack" aria-labelledby="pack-title">
+        <div class="shell simple-grid">
+          <article class="simple-card">
+            <p class="eyebrow">Pack</p>
+            <h2 id="pack-title">Prosty download</h2>
+            <p></p>
+          </article>
+          
+           
+           
+            <p></p>
+          </article>
+          <article class="simple-card">
+            <p class="eyebrow">Plik</p>
+            <h2>MP4</h2>
+            <p></code></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section download" id="download" aria-labelledby="download-title" tabindex="-1">
+        <div class="shell download-grid">
+          <article class="panel">
+            <p class="eyebrow">Pobieranie</p>
+            <h2 id="download-title">Akceptacja reklam</h2>
+            <p>
+              Tu na dole uruchamiasz wszystko: najpierw zaznacz zgodę, potem kliknij
+              <strong>Start reklam i timera</strong>.
+            </p>
+            <label class="check-row">
+              <input type="checkbox" data-consent-checkbox autocomplete="off">
+              <span>Akceptuję wyświetlanie reklam i chcę uruchomić 2-minutowy timer pobierania.</span>
+            </label>
+            <div class="action-grid">
+              <button class="button button--primary button--wide" type="button" data-start-button disabled>
+                <span aria-hidden="true">▶</span><span>Start reklam i timera</span>
+              </button>
+              <button class="button button--ghost button--wide" type="button" data-reset-button>
+                <span aria-hidden="true">↺</span><span>Reset</span>
+              </button>
+            </div>
+          </article>
+
+          <aside class="panel timer-card" aria-live="polite">
+            <div>
+              <span class="status-pill" data-status-pill>Zablokowane</span>
+            </div>
+            <div class="timer-display" aria-label="Czas do odblokowania pliku">
+              <div>
+                <strong data-timer-display>02:00</strong>
+                <span data-timer-caption>do odblokowania pliku</span>
+              </div>
+            </div>
+            <div class="progress" aria-label="Postęp odliczania">
+              <div class="progress__bar" data-progress-bar></div>
+            </div>
+            <p class="status-text" data-status-text>
+              Zaznacz zgodę i kliknij start na dole. Plik nie pobierze się automatycznie.
+            </p>
+            <a class="button button--primary button--wide download-link" data-download-link href="#download" role="button" aria-disabled="true" hidden>
+              <span aria-hidden="true">↓</span><span>Pobierz Karina Pack</span>
+            </a>
+          </aside>
+        </div>
+
+        <div class="shell ads-section" data-ads-section hidden>
+          <div class="ad-grid" data-ad-grid aria-label="Reklamy"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>© 2026 Karina Pack</span>
+        <nav class="footer-nav" aria-label="Linki prawne">
+          <a href="terms.html">Regulamin</a>
+          <a href="privacy.html">Prywatność</a>
+        </nav>
+      </div>
+    </footer>
+
+    <noscript>
+      <div class="noscript">Ta strona wymaga JavaScriptu, aby uruchomić reklamy, timer i pobieranie.</div>
+    </noscript>
+
+    <script src="assets/js/ads.js?v=20260524-fixed-1"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        var WAIT_SECONDS = 120;
+        var DOWNLOAD_URL = "https://mega.nz/file/OpgHUDQb#ZOEyN8F7aXZZAUU65qhddWxzEiO5vT8j6S2jWaTPt78";
+        var FILE_NAME = "Karina_Pack.mp4";
+        var timerId = null;
+        var startedAt = 0;
+        var ready = false;
+        var adsLoaded = false;
+
+        var legacyKeys = [
+          "karina-pack-wait-gate-v2",
+          "karina-pack-ad-consent-v1",
+          "karina_pack_ad_consent_v4",
+          "karina_pack_timer_started_at_v4",
+          "karina_pack_ad_consent_v6",
+          "karina_pack_timer_started_at_v6"
+        ];
+
+        function one(selector) { return document.querySelector(selector); }
+        function all(selector) { return Array.prototype.slice.call(document.querySelectorAll(selector)); }
+
+        function clearOldState() {
+          legacyKeys.forEach(function (key) {
+            try { localStorage.removeItem(key); } catch (error) {}
+          });
+        }
+
+        function clearOldWorker() {
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+              registrations.forEach(function (registration) { registration.unregister(); });
+            }).catch(function () {});
+          }
+          if ("caches" in window) {
+            caches.keys().then(function (keys) {
+              keys.forEach(function (key) {
+                if (/karina|pack|static/i.test(key)) caches.delete(key);
+              });
+            }).catch(function () {});
+          }
+        }
+
+        function formatTime(seconds) {
+          var safe = Math.max(0, Math.ceil(seconds));
+          var minutes = Math.floor(safe / 60);
+          var rest = safe % 60;
+          return String(minutes).padStart(2, "0") + ":" + String(rest).padStart(2, "0");
+        }
+
+        function scrollToDownload() {
+          var target = one("#download");
+          if (!target) return;
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.setTimeout(function () { target.focus({ preventScroll: true }); }, 450);
+        }
+
+        function setStatus(text, state) {
+          var pill = one("[data-status-pill]");
+          if (!pill) return;
+          pill.textContent = text;
+          pill.className = "status-pill" + (state === "ready" ? " status-pill--ready" : state === "counting" ? " status-pill--warn" : "");
+        }
+
+        function updateTimer() {
+          var display = one("[data-timer-display]");
+          var caption = one("[data-timer-caption]");
+          var progressBar = one("[data-progress-bar]");
+          var statusText = one("[data-status-text]");
+          var downloadLink = one("[data-download-link]");
+
+          var remaining = WAIT_SECONDS;
+          var progress = 0;
+
+          if (startedAt) {
+            var elapsed = Math.floor((Date.now() - startedAt) / 1000);
+            remaining = Math.max(0, WAIT_SECONDS - elapsed);
+            progress = Math.min(100, Math.round((elapsed / WAIT_SECONDS) * 100));
+          }
+
+          if (display) display.textContent = formatTime(remaining);
+          if (progressBar) progressBar.style.width = progress + "%";
+
+          if (ready) {
+            if (caption) caption.textContent = "plik jest gotowy";
+            if (statusText) statusText.textContent = "Gotowe. Przycisk pobierania jest widoczny.";
+            if (downloadLink) {
+              downloadLink.hidden = false;
+              downloadLink.href = DOWNLOAD_URL;
+              downloadLink.setAttribute("download", FILE_NAME);
+              downloadLink.setAttribute("aria-disabled", "false");
+            }
+            setStatus("Odblokowane", "ready");
+            return;
+          }
+
+          if (startedAt && remaining <= 0) {
+            ready = true;
+            window.clearInterval(timerId);
+            timerId = null;
+            updateTimer();
+            return;
+          }
+
+          if (startedAt) {
+            if (caption) caption.textContent = "do odblokowania pliku";
+            if (statusText) statusText.textContent = "Odliczanie trwa. Pozostało " + formatTime(remaining) + ".";
+            if (downloadLink) downloadLink.hidden = true;
+            setStatus("Odliczanie", "counting");
+            return;
+          }
+
+          if (caption) caption.textContent = "do odblokowania pliku";
+          if (statusText) statusText.textContent = "Zaznacz zgodę i kliknij start na dole. Plik nie pobierze się automatycznie.";
+          if (downloadLink) {
+            downloadLink.hidden = true;
+            downloadLink.href = "#download";
+            downloadLink.setAttribute("aria-disabled", "true");
+            downloadLink.removeAttribute("download");
+          }
+          setStatus("Zablokowane", "locked");
+        }
+
+        function buildAdFrame(placement, index) {
+          var slot = document.createElement("div");
+          slot.className = "ad-slot";
+          if (placement.width >= 468 && placement.height <= 100) slot.className += " ad-slot--wide";
+          slot.setAttribute("aria-label", "Reklama");
+
+          var iframe = document.createElement("iframe");
+          iframe.title = "Reklama";
+          iframe.loading = "lazy";
+          iframe.referrerPolicy = "no-referrer-when-downgrade";
+          iframe.sandbox = "allow-scripts allow-popups allow-popups-to-escape-sandbox allow-forms";
+          iframe.srcdoc = window.KARINA_ADS.buildFrameDocument(placement);
+          iframe.style.minHeight = Math.max(placement.height || 250, 90) + "px";
+
+          slot.appendChild(iframe);
+          return slot;
+        }
+
+        function loadAds() {
+          var section = one("[data-ads-section]");
+          var grid = one("[data-ad-grid]");
+          if (!section || !grid || adsLoaded) return;
+          if (!window.KARINA_ADS || !window.KARINA_ADS.placements) return;
+
+          var fragment = document.createDocumentFragment();
+          window.KARINA_ADS.placements.slice(0, 9).forEach(function (placement, index) {
+            fragment.appendChild(buildAdFrame(placement, index));
+          });
+          grid.replaceChildren(fragment);
+          section.hidden = false;
+          adsLoaded = true;
+        }
+
+        function startGate() {
+          var checkbox = one("[data-consent-checkbox]");
+          var startButton = one("[data-start-button]");
+          if (!checkbox || !checkbox.checked || startedAt) return;
+
+          checkbox.disabled = true;
+          if (startButton) {
+            startButton.disabled = true;
+            startButton.textContent = "Timer działa";
+          }
+
+          loadAds();
+          startedAt = Date.now();
+          ready = false;
+          updateTimer();
+          timerId = window.setInterval(updateTimer, 1000);
+          scrollToDownload();
+        }
+
+        function resetGate() {
+          var checkbox = one("[data-consent-checkbox]");
+          var startButton = one("[data-start-button]");
+          var adsSection = one("[data-ads-section]");
+          var adGrid = one("[data-ad-grid]");
+
+          if (timerId) window.clearInterval(timerId);
+          timerId = null;
+          startedAt = 0;
+          ready = false;
+          adsLoaded = false;
+
+          if (checkbox) {
+            checkbox.checked = false;
+            checkbox.disabled = false;
+          }
+          if (startButton) {
+            startButton.disabled = true;
+            startButton.innerHTML = '<span aria-hidden="true">▶</span><span>Start reklam i timera</span>';
+          }
+          if (adGrid) adGrid.replaceChildren();
+          if (adsSection) adsSection.hidden = true;
+
+          updateTimer();
+          scrollToDownload();
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          clearOldState();
+          clearOldWorker();
+
+          var checkbox = one("[data-consent-checkbox]");
+          var startButton = one("[data-start-button]");
+          var resetButton = one("[data-reset-button]");
+          var downloadLink = one("[data-download-link]");
+
+          if (checkbox) {
+            checkbox.checked = false;
+            checkbox.disabled = false;
+            checkbox.addEventListener("change", function () {
+              if (startButton) startButton.disabled = !checkbox.checked || Boolean(startedAt);
+            });
+          }
+
+          all("[data-scroll-download]").forEach(function (button) {
+            button.addEventListener("click", function (event) {
+              event.preventDefault();
+              scrollToDownload();
+            });
+          });
+
+          if (startButton) startButton.addEventListener("click", startGate);
+          if (resetButton) resetButton.addEventListener("click", resetGate);
+          if (downloadLink) {
+            downloadLink.addEventListener("click", function (event) {
+              if (!ready) {
+                event.preventDefault();
+                scrollToDownload();
+              }
+            });
+          }
+
+          updateTimer();
+        });
+      })();
+    </script>
+  </body>
+</html>

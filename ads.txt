@@ -1,0 +1,4 @@
+# Uzupelnij ten plik zgodnie z panelem swojej sieci reklamowej.
+# Nie wpisuje tu losowych seller-id, bo bledny ads.txt moze blokowac monetyzacje.
+# Przyklad formatu po otrzymaniu danych od dostawcy:
+# example.com, publisher-id, DIRECT, certification-id
